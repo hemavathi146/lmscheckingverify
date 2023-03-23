@@ -1,3 +1,3 @@
 export default function LoginPage() {
-  return "login form";
+  return "login form should go here";
 }
