@@ -10,8 +10,12 @@ export default function LoginPage() {
     ev.preventDefault();
 
     try {
-      await axios.post("/login", { email, password });
-      // alert("Login successful");
+      await axios.post(
+        "/login",
+        { email, password },
+        { withCredentials: true }
+      );
+      alert("Login successful");
     } catch (e) {
       alert("Login failed");
     }
