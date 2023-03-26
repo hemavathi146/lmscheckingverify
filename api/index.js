@@ -64,16 +64,17 @@ app.post("/login", async (req, res) => {
 app.get('/profile', (req, res) => {
     const {token} = req.cookies;
     if (token) {
-        jwt.verify(token, jwtSecret, {}, (err, user) => {
+        jwt.verify(token, jwtSecret, {}, async (err, userData) => {
             if(err) throw err;
-            res.json(user)
+            const {firstName, lastName, email, _id} = 
+            await User.findById(userData.id)
+            res.json({firstName, lastName, email, _id}) 
 
         })
 
     } else {
         res.json(null)
     }
-    res.json('user info')
 })
 
 app.listen(4000)
