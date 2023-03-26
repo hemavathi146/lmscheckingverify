@@ -47,7 +47,7 @@ export default function Header() {
         </button>
       </div>
       <Link
-        to={"/login"}
+        to={user ? "/account" : "/login"}
         className="flex items-center gap-2 border border-gray-300 rounded-full py-2 px-4 shadow-md shadow-gray-300"
       >
         <svg
