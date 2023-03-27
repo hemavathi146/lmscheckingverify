@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { UserContext } from "../UserContext";
+import axios from "axios";
 
 export default function AccountPage() {
   const { ready, user } = useContext(UserContext);
@@ -8,6 +9,10 @@ export default function AccountPage() {
   let { subpage } = useParams();
   if (subpage === undefined) {
     subpage = "profile";
+  }
+
+  async function logout() {
+    await axios.post("/logout");
   }
 
   if (!ready) {
@@ -42,7 +47,9 @@ export default function AccountPage() {
       {subpage === "profile" && (
         <div className="text-center max-w-xl mx-auto">
           Logged in as {user.firstName} {user.lastName} ({user.email})
-          <button className="primary max-w-sm mt-2">Logout</button>
+          <button onClick={logout} className="primary max-w-sm mt-2">
+            Logout
+          </button>
         </div>
       )}
     </div>
