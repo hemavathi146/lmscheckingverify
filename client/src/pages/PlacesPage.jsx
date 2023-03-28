@@ -1,7 +1,34 @@
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 export default function PlacesPage() {
   const { action } = useParams();
+  const [title, setTitle] = useState("");
+  const [address, setaddress] = useState("");
+  const [addedPhotos, setAddedPhotos] = useState([]);
+  const [photoLink, setPhotoLink] = useState("");
+  const [description, setDescription] = useState("");
+  const [perks, setperks] = useState([]);
+  const [extraInfo, setExtraInfo] = useState("");
+  const [checkIn, setCheckIn] = useState("");
+  const [checkOut, setCheckOut] = useState("");
+  const [maxGuests, setMaxGuests] = useState(1);
+
+  function inputHeader(text) {
+    return <h2 className="text-2xl mt-4">{title}</h2>;
+  }
+  function inputDescription(text) {
+    return <p className="text-gray-500">{text}</p>;
+  }
+  function preInput(header, description) {
+    return (
+      <>
+        {inputHeader(header)}
+        {inputDescription(description)}
+      </>
+    );
+  }
+
   return (
     <div>
       {action !== "new" && (
@@ -31,6 +58,7 @@ export default function PlacesPage() {
       {action === "new" && (
         <div>
           <form>
+            {preInput("Title", "Title for your place")}
             <h2 className="text-2xl mt-4">Title</h2>
             <p className="text-gray-500">title for your place </p>
             <input
@@ -76,8 +104,8 @@ export default function PlacesPage() {
             <p className="text-gray-500">
               What perks are provided at your property?
             </p>
-            <div>
-              <label>
+            <div className="grid mt-2 gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+              <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
                 <input type="checkbox" />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +123,7 @@ export default function PlacesPage() {
                 </svg>
                 <span>Wifi</span>
               </label>
-              <label>
+              <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
                 <input type="checkbox" />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -111,9 +139,10 @@ export default function PlacesPage() {
                     d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"
                   />
                 </svg>
+
                 <span>Free Parking</span>
               </label>
-              <label>
+              <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
                 <input type="checkbox" />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -126,13 +155,13 @@ export default function PlacesPage() {
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    d="M4.5 12.75l6 6 9-13.5"
+                    d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z"
                   />
                 </svg>
 
                 <span>Pets Welcome</span>
               </label>
-              <label>
+              <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
                 <input type="checkbox" />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -151,7 +180,7 @@ export default function PlacesPage() {
 
                 <span>Private Entrance</span>
               </label>
-              <label>
+              <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
                 <input type="checkbox" />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -210,6 +239,9 @@ export default function PlacesPage() {
 
                 <input type="text" />
               </div>
+            </div>
+            <div className="">
+              <button className="primary my-4">Save</button>
             </div>
           </form>
         </div>
