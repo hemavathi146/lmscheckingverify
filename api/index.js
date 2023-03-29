@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const User = require('./models/user.js')
 const cookieParser = require('cookie-parser')
+const imageDownloader = require('image-downloader')
 
 const bcryptSalt = bcrypt.genSaltSync(10);
 const jwtSecret = 'adlfkasdfafoweirud'
@@ -79,6 +80,17 @@ app.get('/profile', (req, res) => {
 
 app.post("/logout", (req, res) => {
     res.cookie("token", '').json(true);
+})
+
+app.post('/upload-by-link', async (req, res) => {
+    const {link} = req.body
+    const newName = 'photo ' + Date.now() + '.jpg'
+    await imageDownloader.image({
+        url:link,
+        dest: __dirname+'uploads' +newName
+    });
+    res.json(newName) 
+
 })
 
 app.listen(4000)
