@@ -33,7 +33,13 @@ export default function PlacesPage() {
 
   async function addPhotoByLink(ev) {
     ev.preventDefault();
-    const { data } = await axios.post("/upload-by-link", { link: photoLink });
+    const { data: filename } = await axios.post("/upload-by-link", {
+      link: photoLink,
+    });
+    setAddedPhotos((prev) => {
+      return [...prev, filename];
+    });
+    setPhotoLink("");
   }
 
   return (
@@ -96,8 +102,20 @@ export default function PlacesPage() {
                 Add&nbsp;photo
               </button>
             </div>
-            <div className="mt-2 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-              <button className="flex gap-1 justify-center border bg-transparent rounded-2xl p-8 text-gray-600 text-2xl">
+            {/* add input type @3:06:50 */}
+            <div className="mt-2 grid gap-2 grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+              {addedPhotos.length > 0 &&
+                addedPhotos.map((link) => (
+                  <div className="rounded-2xl">
+                    <img
+                      className="rounded-2xl"
+                      src={"http://localhost:4000/uploads/" + link}
+                      alt=""
+                    />
+                  </div>
+                ))}
+
+              <button className="flex items-center gap-1 justify-center border bg-transparent rounded-2xl p-2 text-gray-600 text-2xl">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
