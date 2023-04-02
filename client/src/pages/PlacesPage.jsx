@@ -1,13 +1,19 @@
 import { Link, useParams } from "react-router-dom";
 import AccountNav from "../AccountNav";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function PlacesPage() {
+  const [places, setPlaces] = useState([]);
+  useEffect(() => {
+    axios.get("/places").then(({ data }) => {
+      setPlaces(data);
+    });
+  }, []);
   return (
     <div>
       <AccountNav />
       <div className="text-center ">
-        list of all added places
-        <br />
         <Link
           className="inline-flex gap-1 bg-primary text-white py-2 px-6 rounded-full"
           to={"/account/places/new"}
@@ -28,6 +34,14 @@ export default function PlacesPage() {
           </svg>
           Add new place
         </Link>
+      </div>
+      <div className="mt-4">
+        {places.length > 0 &&
+          places.map((place) => (
+            <div className="bg-gray-200 p-4 rounded-2xl" key={""}>
+              {place.title}
+            </div>
+          ))}
       </div>
     </div>
   );
