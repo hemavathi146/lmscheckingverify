@@ -1,9 +1,9 @@
-import { useState } from "react";
 import axios from "axios";
+import { useState } from "react";
+import Image from "./Image.jsx";
 
 export default function PhotosUploader({ addedPhotos, onChange }) {
   const [photoLink, setPhotoLink] = useState("");
-
   async function addPhotoByLink(ev) {
     ev.preventDefault();
     const { data: filename } = await axios.post("/upload-by-link", {
@@ -14,7 +14,6 @@ export default function PhotosUploader({ addedPhotos, onChange }) {
     });
     setPhotoLink("");
   }
-
   function uploadPhoto(ev) {
     const files = ev.target.files;
     const data = new FormData();
@@ -22,7 +21,7 @@ export default function PhotosUploader({ addedPhotos, onChange }) {
       data.append("photos", files[i]);
     }
     axios
-      .post("/uploads", data, {
+      .post("/upload", data, {
         headers: { "Content-type": "multipart/form-data" },
       })
       .then((response) => {
@@ -40,15 +39,14 @@ export default function PhotosUploader({ addedPhotos, onChange }) {
     ev.preventDefault();
     onChange([filename, ...addedPhotos.filter((photo) => photo !== filename)]);
   }
-
   return (
     <>
       <div className="flex gap-2">
         <input
-          type="text"
           value={photoLink}
           onChange={(ev) => setPhotoLink(ev.target.value)}
-          placeholder="Add using a link ... jpeg"
+          type="text"
+          placeholder={"Add using a link ....jpg"}
         />
         <button
           onClick={addPhotoByLink}
@@ -57,18 +55,17 @@ export default function PhotosUploader({ addedPhotos, onChange }) {
           Add&nbsp;photo
         </button>
       </div>
-
       <div className="mt-2 grid gap-2 grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
         {addedPhotos.length > 0 &&
           addedPhotos.map((link) => (
             <div className="h-32 flex relative" key={link}>
-              <img
-                className="rounded-2xl w-full object-cover position-center"
-                src={"http://localhost:4000/uploads/" + link}
+              <Image
+                className="rounded-2xl w-full object-cover"
+                src={link}
                 alt=""
               />
               <button
-                onClick={() => removePhoto(link)}
+                onClick={(ev) => removePhoto(ev, link)}
                 className="cursor-pointer absolute bottom-1 right-1 text-white bg-black bg-opacity-50 rounded-2xl py-2 px-3"
               >
                 <svg
@@ -87,7 +84,7 @@ export default function PhotosUploader({ addedPhotos, onChange }) {
                 </svg>
               </button>
               <button
-                onClick={() => selectAsMainPhoto(link)}
+                onClick={(ev) => selectAsMainPhoto(ev, link)}
                 className="cursor-pointer absolute bottom-1 left-1 text-white bg-black bg-opacity-50 rounded-2xl py-2 px-3"
               >
                 {link === addedPhotos[0] && (
@@ -123,8 +120,7 @@ export default function PhotosUploader({ addedPhotos, onChange }) {
               </button>
             </div>
           ))}
-
-        <label className="h-32 cursor-pointer flex items-center gap-1 justify-center border bg-transparent rounded-2xl p-2 text-gray-600 text-2xl">
+        <label className="h-32 cursor-pointer flex items-center gap-1 justify-center border bg-transparent rounded-2xl p-2 text-2xl text-gray-600">
           <input
             type="file"
             multiple
@@ -137,7 +133,7 @@ export default function PhotosUploader({ addedPhotos, onChange }) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className="w-8 h-8"
           >
             <path
               strokeLinecap="round"
