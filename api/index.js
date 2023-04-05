@@ -17,7 +17,7 @@ require('dotenv').config();
 const app = express();
 
 const bcryptSalt = bcrypt.genSaltSync(10);
-const jwtSecret = 'fasefraw4r5r3wq45wdfgw34twdfg';
+const jwtSecret = 'adlfkasdfafoweirud';
 const bucket = 'bookme-clone-app';
 
 app.use(express.json());
