@@ -31,13 +31,19 @@ export default function PhotosUploader({ addedPhotos, onChange }) {
         });
       });
   }
+
   function removePhoto(ev, filename) {
     ev.preventDefault();
     onChange([...addedPhotos.filter((photo) => photo !== filename)]);
   }
+
   function selectAsMainPhoto(ev, filename) {
     ev.preventDefault();
+    const addedPhotosWithoutSeelected = addedPhotos.filter(
+      (photo) => photo !== filename
+    );
     onChange([filename, ...addedPhotos.filter((photo) => photo !== filename)]);
+    const newAddedPhotos = [filename, ...addedPhotosWithoutSeelected];
   }
   return (
     <>
