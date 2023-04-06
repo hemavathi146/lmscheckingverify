@@ -172,4 +172,28 @@ app.get('/places', async (req, res) => {
     res.json(await Place.find())
 })
 
+app.post('/bookings', async (req, res) => {
+  mongoose.connect(process.env.MONGO_URL);
+  const userData = await getUserDataFromReq(req);
+  const {
+    place,checkIn,checkOut,numberOfGuests,firstName, lastName,phone,price,
+  } = req.body;
+  Booking.create({
+    place,checkIn,checkOut,numberOfGuests,firstName, lastName,phone,price,
+    user:userData.id,
+  }).then((doc) => {
+    res.json(doc);
+  }).catch((err) => {
+    throw err;
+  });
+});
+
+
+
+app.get('/bookings', async (req,res) => {
+  const userData = await getUserDataFromReq(req);
+  res.json( await Booking.find({user:userData.id}).populate('place') );
+});
+
+
 app.listen(4000)
