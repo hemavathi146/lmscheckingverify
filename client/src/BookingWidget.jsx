@@ -1,21 +1,23 @@
 import { useContext, useEffect, useState } from "react";
 import { differenceInCalendarDays } from "date-fns";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import { UserContext } from "./UserContext.jsx";
 
-export default function BookingWidget({ place }) {
+export default function BookingWidget({ place, isAuthenticated }) {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [numberOfGuests, setNumberOfGuests] = useState(1);
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
   const [phone, setPhone] = useState("");
   const [redirect, setRedirect] = useState("");
   const { user } = useContext(UserContext);
 
   useEffect(() => {
     if (user) {
-      setName(user.name);
+      setFirstName(user.firstName);
     }
   }, [user]);
 
@@ -28,17 +30,22 @@ export default function BookingWidget({ place }) {
   }
 
   async function bookThisPlace() {
-    const response = await axios.post("/bookings", {
-      checkIn,
-      checkOut,
-      numberOfGuests,
-      name,
-      phone,
-      place: place._id,
-      price: numberOfNights * place.price,
-    });
-    const bookingId = response.data._id;
-    setRedirect(`/account/bookings/${bookingId}`);
+    if (isAuthenticated) {
+      const response = await axios.post("/bookings", {
+        checkIn,
+        checkOut,
+        numberOfGuests,
+        firstName,
+        lastName,
+        phone,
+        place: place._id,
+        price: numberOfNights * place.price,
+      });
+      const bookingId = response.data._id;
+      setRedirect(`/account/bookings/${bookingId}`);
+    } else {
+      setRedirect("/login");
+    }
   }
 
   if (redirect) {
@@ -79,11 +86,17 @@ export default function BookingWidget({ place }) {
         </div>
         {numberOfNights > 0 && (
           <div className="py-3 px-4 border-t">
-            <label>Your full name:</label>
+            <label>First Name:</label>
             <input
               type="text"
-              value={name}
-              onChange={(ev) => setName(ev.target.value)}
+              value={firstName}
+              onChange={(ev) => setFirstName(ev.target.value)}
+            />
+            <label>Last Name:</label>
+            <input
+              type="text"
+              value={lastName}
+              onChange={(ev) => setLastName(ev.target.value)}
             />
             <label>Phone number:</label>
             <input
@@ -95,8 +108,16 @@ export default function BookingWidget({ place }) {
         )}
       </div>
       <button onClick={bookThisPlace} className="primary mt-4">
-        Book this place
-        {numberOfNights > 0 && <span> ${numberOfNights * place.price}</span>}
+        {isAuthenticated ? (
+          <>
+            Book this place
+            {numberOfNights > 0 && (
+              <span> ${numberOfNights * place.price}</span>
+            )}
+          </>
+        ) : (
+          <Link to="/login">Login to book this place</Link>
+        )}
       </button>
     </div>
   );
