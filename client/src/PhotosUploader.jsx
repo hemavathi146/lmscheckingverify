@@ -39,11 +39,7 @@ export default function PhotosUploader({ addedPhotos, onChange }) {
 
   function selectAsMainPhoto(ev, filename) {
     ev.preventDefault();
-    const addedPhotosWithoutSeelected = addedPhotos.filter(
-      (photo) => photo !== filename
-    );
     onChange([filename, ...addedPhotos.filter((photo) => photo !== filename)]);
-    const newAddedPhotos = [filename, ...addedPhotosWithoutSeelected];
   }
   return (
     <>
