@@ -16,7 +16,7 @@ export default function PlacesFormPage() {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [maxGuests, setMaxGuests] = useState(1);
-  // const [price, setPrice] = useState(100);
+  const [price, setPrice] = useState(100);
   const [redirect, setRedirect] = useState(false);
   useEffect(() => {
     if (!id) {
@@ -33,7 +33,7 @@ export default function PlacesFormPage() {
       setCheckIn(data.checkIn);
       setCheckOut(data.checkOut);
       setMaxGuests(data.maxGuests);
-      // setPrice(data.price);
+      setPrice(data.price);
     });
   }, [id]);
   function inputHeader(text) {
@@ -63,7 +63,7 @@ export default function PlacesFormPage() {
       checkIn,
       checkOut,
       maxGuests,
-      // price,
+      price,
     };
     if (id) {
       // update
@@ -149,14 +149,6 @@ export default function PlacesFormPage() {
               type="number"
               value={maxGuests}
               onChange={(ev) => setMaxGuests(ev.target.value)}
-            />
-          </div>
-          <div>
-            <h3 className="mt-2 -mb-1">Price per night</h3>
-            <input
-              type="number"
-              value={price}
-              onChange={(ev) => setPrice(ev.target.value)}
             />
           </div>
           <div>
