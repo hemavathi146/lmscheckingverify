@@ -30,22 +30,18 @@ export default function BookingWidget({ place, isAuthenticated }) {
   }
 
   async function bookThisPlace() {
-    if (isAuthenticated) {
-      const response = await axios.post("/bookings", {
-        checkIn,
-        checkOut,
-        numberOfGuests,
-        firstName,
-        lastName,
-        phone,
-        place: place._id,
-        price: numberOfNights * place.price,
-      });
-      const bookingId = response.data._id;
-      setRedirect(`/account/bookings/${bookingId}`);
-    } else {
-      setRedirect("/login");
-    }
+    const response = await axios.post("/bookings", {
+      checkIn,
+      checkOut,
+      numberOfGuests,
+      firstName,
+      lastName,
+      phone,
+      place: place._id,
+      price: numberOfNights * place.price,
+    });
+    const bookingId = response.data._id;
+    setRedirect(`/account/bookings/${bookingId}`);
   }
 
   if (redirect) {
@@ -108,16 +104,8 @@ export default function BookingWidget({ place, isAuthenticated }) {
         )}
       </div>
       <button onClick={bookThisPlace} className="primary mt-4">
-        {isAuthenticated ? (
-          <>
-            Book this place
-            {numberOfNights > 0 && (
-              <span> ${numberOfNights * place.price}</span>
-            )}
-          </>
-        ) : (
-          <Link to="/login">Login to book this place</Link>
-        )}
+        Book this place
+        {numberOfNights > 0 && <span> ${numberOfNights * place.price}</span>}
       </button>
     </div>
   );
