@@ -27,6 +27,10 @@ app.use(cors({
     credentials: true,
     origin: 'http://localhost:5173',
 }));
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://booking-clone-ag77oqzhu-d3mmalition.vercel.app');
+  next();
+});
 
 async function uploadToS3(path, originalFilename, mimetype) {
   const client = new S3Client({
