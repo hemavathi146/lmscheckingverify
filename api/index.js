@@ -25,7 +25,7 @@ app.use(cookieParser())
 app.use('/uploads', express.static(__dirname+'/uploads'))
 app.use(cors({
     credentials: true,
-    origin: ['http://localhost:5173', 'https://booking-clone-64trt2r9d-d3mmalition.vercel.app/'],
+    origin: true,
 }));
 
 async function uploadToS3(path, originalFilename, mimetype) {
