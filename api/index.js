@@ -25,7 +25,7 @@ app.use(cookieParser())
 app.use('/uploads', express.static(__dirname+'/uploads'))
 app.use(cors({
     credentials: true,
-    origin: 'http://localhost:5173',
+    origin: 'https://bookme-clone.onrender.com/api/places',
     onProxyRes: function (proxyRes, req, res) {
        proxyRes.headers['Access-Control-Allow-Origin'] = '*';
     }
