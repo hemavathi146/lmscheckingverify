@@ -24,13 +24,9 @@ app.use(express.json());
 app.use(cookieParser())
 app.use('/uploads', express.static(__dirname+'/uploads'))
 app.use(cors({
-  credentials: true,
-  origin: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  exposedHeaders: ['Authorization'],
+    credentials: true,
+    origin: ['http://localhost:5173', 'https://bookme-clone.onrender.com'],
 }));
-
 
 async function uploadToS3(path, originalFilename, mimetype) {
   const client = new S3Client({
