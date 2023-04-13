@@ -25,7 +25,7 @@ app.use(cookieParser())
 app.use('/uploads', express.static(__dirname+'/uploads'))
 app.use(cors({
     credentials: true,
-    origin: ['http://localhost:5173', 'emmabuilds-bookme.vercel.app'],
+    origin: ['http://localhost:5173', 'https://booking-clone-64trt2r9d-d3mmalition.vercel.app/'],
 }));
 
 async function uploadToS3(path, originalFilename, mimetype) {
@@ -141,7 +141,7 @@ app.post('/api/upload', photosMiddleware.array('photos',100), async (req, res) =
   res.json(uploadedFiles);
 });
 
-app.post('/api/places', (req, res) => {
+app.post("/api/places", (req, res) => {
       mongoose.connect(process.env.MONGO_URL);
         const {token} = req.cookies;
         const {title, address, addedPhotos, description, perks,
