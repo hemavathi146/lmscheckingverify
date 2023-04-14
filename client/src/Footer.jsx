@@ -11,7 +11,7 @@ export default function () {
           <p className="text-sm">ecarr.gardner@gmail.com</p>
         </div>
         <div>
-          <h3>Connect</h3>
+          <h3>Connect With Us</h3>
           <a href=""></a>
         </div>
         <div>Visit</div>
