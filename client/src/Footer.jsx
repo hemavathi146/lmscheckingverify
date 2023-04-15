@@ -12,7 +12,7 @@ export default function () {
         </div>
         <div>
           <h3>Connect With Us</h3>
-          <a href=""></a>
+          <a href="">Image 1</a>
         </div>
         <div>Visit</div>
       </div>
