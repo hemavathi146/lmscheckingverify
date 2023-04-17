@@ -16,7 +16,7 @@ export default function () {
           <a href="">Image 2</a>
           <a href="">Image 3</a>
         </div>
-        <div>Visit Us</div>
+        <div>Third Row</div>
       </div>
     </footer>
   );
