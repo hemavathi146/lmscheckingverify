@@ -22,4 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-/home/d3mmalition/booking_clone/api/.env
+
+#secret file
+.env
