@@ -4,9 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "start": "concurrently \"npm run start:client\" \"npm run start:server\"",
+    "start:client": "npm run dev",
+    "start:server": "node index.js",
+    "start:development": "nodemon index.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.4.0",
