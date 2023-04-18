@@ -201,10 +201,10 @@ app.put('/api/places', async (req, res) => {
     })
 })
 
-app.get('/api/places', async (req, res) => {
-      mongoose.connect(process.env.MONGO_URL);
-    res.json(await Place.find())
-})
+// app.get('/api/places', async (req, res) => {
+//       mongoose.connect(process.env.MONGO_URL);
+//     res.json(await Place.find())
+// })
 
 app.post('/api/bookings', async (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
