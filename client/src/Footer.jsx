@@ -12,9 +12,9 @@ export default function () {
         </div>
         <div>
           <h3>Connect With Us</h3>
-          <a href="">Image 1</a>
-          <a href="">Image 2</a>
-          <a href="">Image 3</a>
+          <a href="">Icon</a>
+          <a href="">Icon 2</a>
+          <a href="">Icon 3</a>
         </div>
         <div>Third Row</div>
       </div>
