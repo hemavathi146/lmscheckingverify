@@ -8,7 +8,8 @@
   "start:client": "npm run dev",
   "start:server": "node index.js",
   "start:development": "nodemon index.js",
-  "build": "vite build"
+  "build": "vite build",
+  "dev": "vite"
 }
 ,
   "dependencies": {
