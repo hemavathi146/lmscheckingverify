@@ -35,7 +35,7 @@ export default function IndexPage() {
             </Link>
           ))
         ) : (
-          <p>Hold tight! We're searching for accommodations now...</p>
+          <p>Hold tight! Searching for accommodations...</p>
         )}
       </div>
     </div>
