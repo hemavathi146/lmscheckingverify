@@ -35,7 +35,7 @@ export default function IndexPage() {
             </Link>
           ))
         ) : (
-          <p>No accommodations found...</p>
+          <p>Hold tight! We're searching for accommodations now...</p>
         )}
       </div>
     </div>
