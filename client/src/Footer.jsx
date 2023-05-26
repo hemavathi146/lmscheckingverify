@@ -7,8 +7,10 @@ export default function () {
         <div>
           <h3>Connect With Us</h3>
           <hr />
-          <a href="https://linkedin.com/in/ecarrgardner">fab fa-linkedin</a>
-          <a href="https://github.com/d3mmalition">fab fa-github</a>
+          <a href="https://linkedin.com/in/ecarrgardner">icon1</a>
+          <a href="https://github.com/d3mmalition">
+            <FontAwesomeIcon icon="fa-brands fa-github" />
+          </a>
           <a href="">Icon 3</a>
         </div>
       </div>
