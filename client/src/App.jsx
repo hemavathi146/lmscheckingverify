@@ -1,39 +1,73 @@
-import "./App.css";
-import { Route, Routes } from "react-router-dom";
-import IndexPage from "./pages/IndexPage";
-import LoginPage from "./pages/LoginPage";
-import Layout from "./Layout";
-import RegisterPage from "./pages/RegisterPage";
-import ProfilePage from "./pages/ProfilePage";
-import axios from "axios";
-import { UserContextProvider } from "./UserContext";
-import PlacesPage from "./pages/PlacesPage";
-import PlacesFormPage from "./pages/PlacesFormPage";
-import BookingsPage from "./pages/BookingsPage";
-import BookingPage from "./pages/BookingPage";
-import PlacePage from "./pages/PlacePage";
+import React from "react";
 
-axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
-axios.defaults.withCredentials = true;
+import { Routes, Route } from "react-router-dom";
+import HomePage from "./Pages/HomePage";
+import AboutUs from "./Pages/About";
+import NotFound from "./Pages/NotFound";
+import Signup from "./Pages/Signup";
+import Login from "./Pages/Login";
+import ChangePassword from "./Pages/Password/ChangePassword"
+import ForgotPassword from "./Pages/Password/ForgotPassword";
+import ResetPassword from "./Pages/Password/ResetPassword";
+import CourseList from "./Pages/Course/CourseList";
+import Contact from "./Pages/Contact";
+import Denied from "./Pages/Denied";
+import CourseDescription from "./Pages/Course/CourseDescription";
+
+import RequireAuth from "./Components/auth/RequireAuth";
+import CreateCourse from "./Pages/Course/CreateCourse";
+import Profile from "./Pages/User/Profile";
+import Checkout from "./Pages/Payment/Checkout";
+import CheckoutSuccess from "./Pages/Payment/CheckoutSuccess";
+import CheckoutFail from "./Pages/Payment/CheckoutFail";
+import DisplayLecture from "./Pages/Dashboard/DisplayLecture";
+import AddLecture from "./Pages/Dashboard/AddLecture";
+import AdminDashboard from "./Pages/Dashboard/AdminDashboard";
 
 function App() {
   return (
-    <UserContextProvider>
+    <>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<IndexPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/account" element={<ProfilePage />} />
-          <Route path="/account/places" element={<PlacesPage />} />
-          <Route path="/account/places/new" element={<PlacesFormPage />} />
-          <Route path="/account/places/:id" element={<PlacesFormPage />} />
-          <Route path="/place/:id" element={<PlacePage />} />
-          <Route path="/account/bookings" element={<BookingsPage />} />
-          <Route path="/account/bookings/:id" element={<BookingPage />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/denied" element={<Denied />} />
+
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/user/profile/reset-password"
+          element={<ForgotPassword />}
+        />
+        <Route
+          path="/user/profile/reset-password/:resetToken"
+          element={<ResetPassword />}
+        />
+
+        <Route path="/courses" element={<CourseList />} />
+        <Route path="/courses/description" element={<CourseDescription />} />
+
+        <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
+          <Route path="/course/create" element={<CreateCourse />} />
+          <Route path="/course/addlecture" element={<AddLecture />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Route>
+
+        <Route element={<RequireAuth allowedRoles={["USER", "ADMIN"]} />}>
+          <Route path="/user/profile" element={<Profile />} />
+          <Route
+            path="/user/profile/change-password"
+            element={<ChangePassword />}
+          />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/checkout/success" element={<CheckoutSuccess />} />
+          <Route path="/checkout/fail" element={<CheckoutFail />} />
+          <Route path="/course/displaylectures" element={<DisplayLecture />} />
+        </Route>
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
-    </UserContextProvider>
+    </>
   );
 }
 
